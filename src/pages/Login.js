@@ -1,16 +1,29 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import loginImage from "../media/login.png";
+import { login } from "../store/user/thunks";
+import { selectToken } from "../store/user/selectors";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const token = useSelector(selectToken);
+
   const handleSubmit = (e) => {
-    //submit form here
     e.preventDefault();
-    console.log("submit login form", email, password);
+    dispatch(login(email, password));
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   return (
     <div class="container mx-auto">

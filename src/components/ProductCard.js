@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Modal } from "./Modal";
+import { AddToCartModal } from "./AddToCartModal";
 
 export const ProductCard = ({ product, addToCart }) => {
   const { id, imageUrl, name, price } = product;
@@ -40,7 +40,7 @@ export const ProductCard = ({ product, addToCart }) => {
         </div>
       </article>
       {modalOpen && (
-        <Modal
+        <AddToCartModal
           setModalOpen={setModalOpen}
           addToCart={addToCart}
           product={product}

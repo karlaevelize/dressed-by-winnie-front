@@ -16,9 +16,7 @@ export const Homepage = () => {
   }, []);
 
   const addToCart = (product) => {
-    console.log("product", product);
-    console.log("cart", cart);
-    cart.includes(product)
+    cart.find((item) => item.id === product.id && item.size === product.size)
       ? dispatch(increase(product))
       : dispatch(add(product));
   };

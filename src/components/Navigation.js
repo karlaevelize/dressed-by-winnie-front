@@ -1,7 +1,13 @@
 import logo from "../media/logo.png";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectToken } from "../store/user/selectors";
+import { logOut } from "../store/user/slice";
 
 export const Navigation = () => {
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+
   return (
     <div class="shadow bg-white">
       <div class="h-24 mx-auto px-5 flex items-center justify-between">
@@ -11,15 +17,23 @@ export const Navigation = () => {
         >
           <img style={{ height: "100px" }} src={logo} />
         </Link>
-        {/* <div class="flex items-center gap-5">
-          <p class="text-lg">Hoodies</p>
-          <p class="text-lg">Bow Ties</p>
-        </div> */}
         <ul class="flex items-center gap-5">
           <li>
-            <Link to="/login" class="hover:text-pale-yellow transition-colors">
-              Login
-            </Link>
+            {!token ? (
+              <Link
+                to="/login"
+                class="hover:text-pale-yellow transition-colors"
+              >
+                Login
+              </Link>
+            ) : (
+              <button
+                class="w-full px-4 py-2  bg-pale-green rounded-full hover:shadow focus:outline-none focus:shadow-outline"
+                onClick={() => dispatch(logOut())}
+              >
+                Logout
+              </button>
+            )}
           </li>
           <li>
             <Link

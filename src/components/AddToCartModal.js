@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 
-export const Modal = ({ setModalOpen, addToCart, product }) => {
+export const AddToCartModal = ({ setModalOpen, addToCart, product }) => {
   const { id, name, imageUrl, price } = product;
 
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState("S");
   const [quantity, setQuantity] = useState(1);
 
   console.log(quantity);
@@ -104,7 +104,7 @@ export const Modal = ({ setModalOpen, addToCart, product }) => {
                   onClick={() => {
                     addToCart({
                       ...product,
-                      size: "S",
+                      size: size,
                       quantity: parseInt(quantity),
                     });
                     setModalOpen(false);

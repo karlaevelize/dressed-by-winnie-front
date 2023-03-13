@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import signUpImage from "../media/signup.png";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp } from "../store/user/thunks";
+import { selectToken } from "../store/user/selectors";
 
 export const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -9,18 +12,21 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const token = useSelector(selectToken);
+
   const handleSubmit = (e) => {
-    //submit form here
     e.preventDefault();
-    console.log(
-      "submit sign up",
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword
-    );
+    dispatch(signUp(firstName, lastName, email, password));
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   return (
     <div class="container mx-auto">
