@@ -1,15 +1,26 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  selectShoppingCart,
-  selectShoppingCartTotal,
-} from "../store/shoppingCart/selectors";
-import { increase, decrease, remove, reset } from "../store/shoppingCart/slice";
+import { selectShoppingCartTotal } from "../store/shoppingCart/selectors";
+import { selectUser } from "../store/user/selectors";
 
 export const Checkout = () => {
   const dispatch = useDispatch();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState("");
+  const [appt, setAppt] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [message, setMessage] = useState("");
+
   const { cart, total } = useSelector(selectShoppingCartTotal);
   const shippingCosts = 4;
+
   return (
     <div class="h-screen pt-5">
       <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
@@ -38,8 +49,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="firstName"
-                  // value={firstName}
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   type="text"
                   placeholder="First Name"
                 />
@@ -54,8 +65,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="lastName"
-                  // value={lastName}
-                  // onChange={(e) => setLastName(e.target.value)}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   type="text"
                   placeholder="Last Name"
                 />
@@ -70,8 +81,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="email"
-                  // value={lastName}
-                  // onChange={(e) => setLastName(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   type="text"
                   placeholder="Email"
                 />
@@ -88,8 +99,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="street"
-                  // value={firstName}
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  value={street}
+                  onChange={(e) => setStreet(e.target.value)}
                   type="text"
                   placeholder="Street"
                 />
@@ -104,8 +115,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="number"
-                  // value={lastName}
-                  // onChange={(e) => setLastName(e.target.value)}
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
                   type="text"
                   placeholder="Number"
                 />
@@ -120,8 +131,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="appt"
-                  // value={lastName}
-                  // onChange={(e) => setLastName(e.target.value)}
+                  value={appt}
+                  onChange={(e) => setAppt(e.target.value)}
                   type="text"
                   placeholder="Appt"
                 />
@@ -138,8 +149,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="postcode"
-                  // value={firstName}
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  value={postcode}
+                  onChange={(e) => setPostcode(e.target.value)}
                   type="text"
                   placeholder="Postcode"
                 />
@@ -154,8 +165,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="lastName"
-                  // value={lastName}
-                  // onChange={(e) => setLastName(e.target.value)}
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                   type="text"
                   placeholder="City"
                 />
@@ -170,8 +181,8 @@ export const Checkout = () => {
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="country"
-                  // value={lastName}
-                  // onChange={(e) => setLastName(e.target.value)}
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
                   type="text"
                   placeholder="Country"
                 />
@@ -187,8 +198,8 @@ export const Checkout = () => {
               <input
                 class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 id="message"
-                // value={firstName}
-                // onChange={(e) => setFirstName(e.target.value)}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 type="text"
                 placeholder="Any requests"
               />
