@@ -1,9 +1,9 @@
 import "./App.css";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserWithStoredToken } from "./store/user/thunks";
 import { Routes, Route } from "react-router-dom";
-import { Navigation, InfoBar } from "./components";
+import { Navigation, MessageBox } from "./components";
 import {
   Homepage,
   ShoppingCart,
@@ -11,7 +11,9 @@ import {
   SignUp,
   Checkout,
   OrderConfirmation,
+  CompleteProfile,
 } from "./pages";
+import { selectUser } from "./store/user/selectors";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,9 +22,12 @@ const App = () => {
     dispatch(getUserWithStoredToken());
   }, [dispatch]);
 
+  const user = useSelector(selectUser);
+
   return (
     <div class="text-gray-600">
       <Navigation />
+      {user && !user.address && <MessageBox />}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/shopping-cart" element={<ShoppingCart />} />
@@ -30,6 +35,7 @@ const App = () => {
         <Route path="signup" element={<SignUp />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        <Route path="/complete-profile" element={<CompleteProfile />} />
       </Routes>
     </div>
   );

@@ -38,7 +38,7 @@ export const Navigation = () => {
           <li>
             <Link
               to="/shopping-cart"
-              class="hover:text-pale-yellow transition-colors"
+              class="rounded p-2 hover:shadow transition-colors"
             >
               Shopping Cart
             </Link>

@@ -31,7 +31,7 @@ export const ProductCard = ({ product, addToCart }) => {
 
           <div class="mt-3 flex items-end justify-between">
             <p class="text-lg font-bold">€ {price}</p>
-            <div class="flex items-center space-x-1.5 rounded-lg bg-pale-green px-4 py-1.5 text-white duration-100 hover:bg-pale-yellow">
+            <div class="flex items-center space-x-1.5 rounded-lg bg-pale-green px-4 py-1.5 text-white duration-100 hover:shadow">
               <button onClick={() => setModalOpen(!modalOpen)} class="text-sm">
                 Add to cart
               </button>
