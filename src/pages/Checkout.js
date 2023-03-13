@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { selectShoppingCartTotal } from "../store/shoppingCart/selectors";
 import { selectUser } from "../store/user/selectors";
+import { createOrder } from "../store/order/thunks";
+import { reset } from "../store/shoppingCart/slice";
 
 export const Checkout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate("");
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -18,8 +21,43 @@ export const Checkout = () => {
   const [country, setCountry] = useState("");
   const [message, setMessage] = useState("");
 
-  const { cart, total } = useSelector(selectShoppingCartTotal);
+  const { cart, total, quantity } = useSelector(selectShoppingCartTotal);
+  const user = useSelector(selectUser);
   const shippingCosts = 4;
+
+  const handleOrder = () => {
+    dispatch(
+      createOrder(
+        { cart, total, quantity },
+        {
+          email,
+          street,
+          number,
+          appt,
+          postcode,
+          city,
+          country,
+          message,
+          userId: user?.id,
+        }
+      )
+    );
+    dispatch(reset());
+    navigate("/order-confirmation");
+  };
+
+  const useAccountInfo = () => {
+    const { firstName, lastName, email } = user;
+    setFirstName(firstName);
+    setLastName(lastName);
+    setEmail(email);
+    setStreet("Loolaan");
+    setNumber("41");
+    setPostcode("7314AD");
+    setCity("Apeldoorn");
+    setCountry("Netherlands");
+    setAppt("32");
+  };
 
   return (
     <div class="h-screen pt-5">
@@ -28,10 +66,14 @@ export const Checkout = () => {
           <div class="flex items-baseline gap-6">
             <h1 class="mb-10 text-center text-2xl  font-bold">Address</h1>
             <>
-              {" "}
-              <button class="mt-6 w-full rounded-md bg-white py-1.5 font-medium hover:shadow">
-                Use Account Info
-              </button>
+              {user && (
+                <button
+                  onClick={useAccountInfo}
+                  class="mt-6 w-full rounded-md bg-white py-1.5 font-medium hover:shadow"
+                >
+                  Use Account Info
+                </button>
+              )}
             </>
           </div>
           <form
@@ -94,7 +136,7 @@ export const Checkout = () => {
                   class="block mb-2 text-sm font-bold text-gray-700"
                   for="street"
                 >
-                  Street
+                  Street + Number
                 </label>
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -226,11 +268,12 @@ export const Checkout = () => {
                 {/* <p class="text-sm text-gray-700">including VAT</p> */}
               </div>
             </div>
-            <Link to="/checkout">
-              <button class="mt-6 w-full rounded-md bg-pale-green py-1.5 font-medium text-blue-50 hover:shadow">
-                Confirm & Buy
-              </button>
-            </Link>
+            <button
+              onClick={handleOrder}
+              class="mt-6 w-full rounded-md bg-pale-green py-1.5 font-medium text-blue-50 hover:shadow"
+            >
+              Confirm & Buy
+            </button>
           </div>
         </div>
       </div>

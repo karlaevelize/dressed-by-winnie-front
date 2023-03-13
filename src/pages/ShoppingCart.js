@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  selectShoppingCart,
-  selectShoppingCartTotal,
-} from "../store/shoppingCart/selectors";
+import { selectShoppingCartTotal } from "../store/shoppingCart/selectors";
 import { increase, decrease, remove, reset } from "../store/shoppingCart/slice";
 
 export const ShoppingCart = () => {
@@ -56,7 +53,10 @@ export const ShoppingCart = () => {
                     </div>
                     <div class="flex items-center space-x-4">
                       <p class="text-sm">€ {item.price}</p>
-                      <p onClick={() => dispatch(remove(item))} class="text-sm">
+                      <p
+                        onClick={() => dispatch(remove(item))}
+                        class="text-sm cursor-pointer hover:text-red-600"
+                      >
                         X
                       </p>
                     </div>

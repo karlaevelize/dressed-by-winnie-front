@@ -1,9 +1,25 @@
 import "./App.css";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getUserWithStoredToken } from "./store/user/thunks";
 import { Routes, Route } from "react-router-dom";
 import { Navigation, InfoBar } from "./components";
-import { Homepage, ShoppingCart, Login, SignUp, Checkout } from "./pages";
+import {
+  Homepage,
+  ShoppingCart,
+  Login,
+  SignUp,
+  Checkout,
+  OrderConfirmation,
+} from "./pages";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserWithStoredToken());
+  }, [dispatch]);
+
   return (
     <div class="text-gray-600">
       <Navigation />
@@ -13,6 +29,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
       </Routes>
     </div>
   );
