@@ -27,7 +27,7 @@ export const ProductCard = ({ product, addToCart }) => {
         </Link>
         <div class="mt-1 p-2">
           <h2 class="text-slate-700">{name}</h2>
-          <p class="mt-1 text-sm text-slate-400">Lisbon, Portugal</p>
+          <p class="mt-1 text-sm text-slate-400">Amsterdam, Netherlands</p>
 
           <div class="mt-3 flex items-end justify-between">
             <p class="text-lg font-bold">€ {price}</p>
