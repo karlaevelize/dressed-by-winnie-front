@@ -1,95 +1,97 @@
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectShoppingCart,
+  selectShoppingCartTotal,
+} from "../store/shoppingCart/selectors";
+
 export const ShoppingCart = () => {
+  const { cart, quantity, total } = useSelector(selectShoppingCartTotal);
+  const shoppingCosts = 4;
+
   return (
-    <section class="antialiased text-gray-600 h-screen px-4">
-      <div class="flex flex-col justify-center h-full">
-        {/* <!-- Table --> */}
-        <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-          <header class="px-5 py-4 border-b border-gray-100">
-            <div class="font-semibold text-gray-800">Manage Carts</div>
-          </header>
-
-          <div class="overflow-x-auto p-3">
-            <table class="table-auto w-full">
-              <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                <tr>
-                  <th></th>
-                  <th class="p-2">
-                    <div class="font-semibold text-left">Product Name</div>
-                  </th>
-                  <th class="p-2">
-                    <div class="font-semibold text-left">Quantity</div>
-                  </th>
-                  <th class="p-2">
-                    <div class="font-semibold text-left">Total</div>
-                  </th>
-                  <th class="p-2">
-                    <div class="font-semibold text-center">Action</div>
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody class="text-sm divide-y divide-gray-100">
-                {/* <!-- record 1 --> */}
-                <tr>
-                  <td class="p-2">
-                    <input type="checkbox" class="w-5 h-5" value="id-1" />
-                  </td>
-                  <td class="p-2">
-                    <div class="font-medium text-gray-800">
-                      Samsung Galaxy Note 4
+    <div class="h-screen bg-gray-100 pt-5">
+      {cart.length > 0 && (
+        <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+          <div class="rounded-lg bg-white p-6 shadow-md md:w-2/3">
+            <h1 class="mb-10 text-center text-2xl  font-bold">Cart Items</h1>
+            {cart.map((item) => (
+              <div
+                key={item.id}
+                class="justify-between mb-6 rounded-lg flex bg-white p-6 shadow-md sm:flex sm:justify-start"
+              >
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  class="w-full rounded-lg sm:w-40"
+                />
+                <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                  <div class="mt-5 sm:mt-0">
+                    <h2 class="text-lg font-bold text-gray-900">{item.name}</h2>
+                    <p class="mt-1 text-xs text-gray-700">{item.size}</p>
+                  </div>
+                  <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                    <div class="flex items-center border-gray-100">
+                      <span class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:shadow ">
+                        -
+                      </span>
+                      <input
+                        class="h-8 w-8 border bg-white text-center text-xs outline-none"
+                        type="number"
+                        value={item.quantity}
+                        min="1"
+                        max="10"
+                      />
+                      <span class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-shadow">
+                        +
+                      </span>
                     </div>
-                  </td>
-                  <td class="p-2">
-                    <div class="text-left">1</div>
-                  </td>
-                  <td class="p-2">
-                    <div class="text-left font-medium text-green-500">
-                      RM 2,890.66
+                    <div class="flex items-center space-x-4">
+                      <p class="text-sm">€ {item.price}</p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
                     </div>
-                  </td>
-                  <td class="p-2">
-                    <div class="flex justify-center">
-                      <button>
-                        <svg
-                          class="w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          ></path>
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-
-          {/* <!-- total amount --> */}
-          <div class="flex justify-end font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
-            <div>Total</div>
-            <div class="text-blue-600">
-              RM <span x-text="total.toFixed(2)"></span>
+          {/* <!-- Sub total --> */}
+          <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+            <h1 class="mb-10 text-center text-2xl font-bold">Total</h1>
+            <div class="mb-2 flex justify-between">
+              <p class="text-gray-700">Subtotal</p>
+              <p class="text-gray-700">€ {total}</p>
             </div>
-          </div>
-
-          <div class="flex justify-end">
-            {/* <!-- send this data to backend (note: use class 'hidden' to hide this input) --> */}
-            <input
-              type="hidden"
-              class="border border-black bg-gray-50"
-              x-model="selected"
-            />
+            <div class="flex justify-between">
+              <p class="text-gray-700">Shipping</p>
+              <p class="text-gray-700">€ 4</p>
+            </div>
+            <hr class="my-4" />
+            <div class="flex justify-between">
+              <p class="text-lg font-bold">Total</p>
+              <div class="">
+                <p class="mb-1 text-lg font-bold">€ {total + shoppingCosts}</p>
+                {/* <p class="text-sm text-gray-700">including VAT</p> */}
+              </div>
+            </div>
+            <button class="mt-6 w-full rounded-md bg-pale-green py-1.5 font-medium text-blue-50 hover:shadow">
+              Check out
+            </button>
           </div>
         </div>
-      </div>
-    </section>
+      )}
+    </div>
   );
 };

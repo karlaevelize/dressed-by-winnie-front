@@ -102,7 +102,12 @@ export const Modal = ({ setModalOpen, addToCart, product }) => {
               <div class="flex text-center items-center space-x-1.5 rounded-lg bg-pale-green px-4 py-1.5 text-white duration-100 hover:bg-pale-yellow">
                 <button
                   onClick={() => {
-                    addToCart({ ...product, size: "S", quantity: quantity });
+                    addToCart({
+                      ...product,
+                      size: "S",
+                      quantity: parseInt(quantity),
+                    });
+                    setModalOpen(false);
                   }}
                   class="text-sm text-center"
                 >

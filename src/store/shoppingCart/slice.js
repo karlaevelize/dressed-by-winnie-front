@@ -9,15 +9,18 @@ export const shoppingCartSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action) => {
-      console.log("action", action);
-      state.shoppingCart.push(action.payload);
+      const item = action.payload;
+      state.shoppingCart.push(item);
     },
     remove: (state, action) => {},
     increase: (state, action) => {
       console.log("action");
+      const { id, size } = action.payload;
     },
     decrease: (state, action) => {},
-    reset: (state) => {},
+    reset: (state) => {
+      state.shoppingCart = [];
+    },
   },
 });
 
