@@ -27,7 +27,7 @@ const App = () => {
   return (
     <div class="text-gray-600">
       <Navigation />
-      {user && !user.address && <MessageBox />}
+      {user && !user.country && <MessageBox />}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/shopping-cart" element={<ShoppingCart />} />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { selectShoppingCartTotal } from "../store/shoppingCart/selectors";
@@ -24,6 +24,12 @@ export const Checkout = () => {
   const { cart, total, quantity } = useSelector(selectShoppingCartTotal);
   const user = useSelector(selectUser);
   const shippingCosts = 4;
+
+  useEffect(() => {
+    if (cart.length < 1) {
+      navigate("/");
+    }
+  }, [cart, navigate]);
 
   const handleOrder = () => {
     dispatch(
@@ -145,22 +151,6 @@ export const Checkout = () => {
                   onChange={(e) => setStreet(e.target.value)}
                   type="text"
                   placeholder="Street"
-                />
-              </div>
-              <div class="md:ml-2">
-                <label
-                  class="block mb-2 text-sm font-bold text-gray-700"
-                  for="lastName"
-                >
-                  Number
-                </label>
-                <input
-                  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  id="number"
-                  value={number}
-                  onChange={(e) => setNumber(e.target.value)}
-                  type="text"
-                  placeholder="Number"
                 />
               </div>
               <div class="md:ml-2">
