@@ -99,20 +99,18 @@ export const AddToCartModal = ({ setModalOpen, addToCart, product }) => {
                   class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
               </div>
-              <div class="flex text-center items-center space-x-1.5 rounded-lg bg-pale-green px-4 py-1.5 text-white duration-100 hover:bg-pale-yellow">
-                <button
-                  onClick={() => {
-                    addToCart({
-                      ...product,
-                      size: size,
-                      quantity: parseInt(quantity),
-                    });
-                    setModalOpen(false);
-                  }}
-                  class="text-sm text-center"
-                >
-                  Add to cart
-                </button>
+              <div
+                onClick={() => {
+                  addToCart({
+                    ...product,
+                    size: size,
+                    quantity: parseInt(quantity),
+                  });
+                  setModalOpen(false);
+                }}
+                class="flex cursor-pointer justify-center items-center space-x-1.5 rounded-lg bg-pale-green px-4 py-1.5 text-white duration-100 hover:bg-pale-yellow"
+              >
+                Add to cart
               </div>
             </div>
           </div>
